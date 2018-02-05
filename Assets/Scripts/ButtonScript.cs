@@ -14,8 +14,8 @@ public class ButtonScript : MonoBehaviour {
         gameManager.PlayerClick(thisButton);
     }
 
-	void Start () {
+    void Start () {
         animator = GetComponent<Animator>();
         gameManager = FindObjectOfType<GameManager>();
-	}
+    }
 }

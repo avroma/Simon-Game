@@ -17,11 +17,11 @@ public class CountManager : MonoBehaviour {
 
         ResetData();
         PrepareNewRound();
-	}
+    }
 	
-	void Update () {
+    void Update () {
         DecreaseBonusScore();
-	}
+    }
 
     public void ResetData() {
         round = 0;

@@ -7,7 +7,6 @@ public class UIManager : MonoBehaviour {
     private const int LARGE_DELAY_POPUP_MESSAGE_FRAMES = 170;
     private int messageTimer;
 
-
     public Text scoreText;
     public Text bestScoreText;
     public Text messageText;
@@ -27,9 +26,9 @@ public class UIManager : MonoBehaviour {
     }
 	
 
-	void Update () {
+    void Update () {
         NeedToShowMessage();
-	}
+    }
 
     public void UpdateScore() {
         scoreText.text = "Результат: " + gameManager.GetScore();
