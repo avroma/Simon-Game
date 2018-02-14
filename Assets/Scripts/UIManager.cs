@@ -12,14 +12,14 @@ public class UIManager : MonoBehaviour {
     public Text messageText;
 
     private GameManager gameManager;
-    private ValueTypes.gameState gameState;
+    private ValueTypes.GameState gameState;
     private bool messageOnScreen;
 
 
     void Start () {
         gameManager = GetComponent<GameManager>();
 
-        SwitchGameState(ValueTypes.gameState.start);
+        SwitchGameState(ValueTypes.GameState.Start);
 
         RestoreMessageTimer();
         HideMessage();
@@ -38,20 +38,20 @@ public class UIManager : MonoBehaviour {
         bestScoreText.text = "Лучший результат: " + newBestScore + "!";
     }
 
-    public void ShowMessage(ValueTypes.gameState gameState) {
+    public void ShowMessage(ValueTypes.GameState gameState) {
         messageText.transform.localScale = new Vector3(1, 1);
        
          switch(gameState) {
-            case ValueTypes.gameState.start:
+            case ValueTypes.GameState.Start:
                 messageText.text = "Нажмите любую кнопку что бы начать игру!";
                 break;
-            case ValueTypes.gameState.playerTurn:
+            case ValueTypes.GameState.PlayerTurn:
                 messageText.text = "Повторите последовательность!";
                 break;
-            case ValueTypes.gameState.win:
+            case ValueTypes.GameState.Win:
                 messageText.text = "Победа!!! Нажмите любую кнопку что бы начать игру!";
                 break;
-            case ValueTypes.gameState.lose:
+            case ValueTypes.GameState.Lose:
                 messageText.text = "Проигрыш(( Нажмите любую кнопку что бы начать игру!";
                 break;
             default:
@@ -67,12 +67,12 @@ public class UIManager : MonoBehaviour {
         messageOnScreen = false;
     }
 
-    public void SwitchGameState(ValueTypes.gameState newGameState) {
+    public void SwitchGameState(ValueTypes.GameState newGameState) {
         gameState = newGameState;
     }
 
     private void NeedToShowMessage() {
-        if (gameState != ValueTypes.gameState.task) {
+        if (gameState != ValueTypes.GameState.Task) {
             if (!messageOnScreen) {
                 messageTimer--;
 
@@ -88,14 +88,16 @@ public class UIManager : MonoBehaviour {
                     HideMessage();
                 }
             }
-        } else
+        } else{
             HideMessage();
+        }
     }
 
     private void RestoreMessageTimer() {
-        if (gameState == ValueTypes.gameState.start | gameState == ValueTypes.gameState.win | gameState == ValueTypes.gameState.lose)
+        if (gameState == ValueTypes.GameState.Start | gameState == ValueTypes.GameState.Win | gameState == ValueTypes.GameState.Lose){
             messageTimer = SMALL_DELAY_POPUP_MESSAGE_FRAMES;
-        else
+        } else{
             messageTimer = LARGE_DELAY_POPUP_MESSAGE_FRAMES;
+        }
     }
 }

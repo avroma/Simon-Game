@@ -57,9 +57,10 @@ public class CountManager : MonoBehaviour {
     }
 
     private void DecreaseBonusScore() {
-        if (bonusScore > 0)
+        if (bonusScore > 0){
             bonusScore = bonusScore - .15f;
-        else
+        } else{
             bonusScore = 0;
+        }
     }
 }

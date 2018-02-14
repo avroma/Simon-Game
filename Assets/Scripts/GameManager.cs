@@ -14,19 +14,19 @@ public class GameManager : MonoBehaviour {
     private CountManager countManager;
     private UIManager interfaceManager;
 
-    private List<ValueTypes.buttonType> taskList;
-    private List<ValueTypes.buttonType> playerList;
+    private List<ValueTypes.ButtonType> taskList;
+    private List<ValueTypes.ButtonType> playerList;
 
     private int taskLoop;
     private bool messageOnScreen;
-    private ValueTypes.gameState gameState;
+    private ValueTypes.GameState gameState;
 
     void Start() {
         countManager = GetComponent<CountManager>();
         interfaceManager = GetComponent<UIManager>();
 
-        taskList = new List<ValueTypes.buttonType>();
-        playerList = new List<ValueTypes.buttonType>();
+        taskList = new List<ValueTypes.ButtonType>();
+        playerList = new List<ValueTypes.ButtonType>();
 
         ResetData();
         PrepareNewRound();
@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour {
         DoesGameStart();
     }
 
-    public void PlayerClick(ValueTypes.buttonType button) {
-        if(gameState == ValueTypes.gameState.playerTurn) {
+    public void PlayerClick(ValueTypes.ButtonType button) {
+        if(gameState == ValueTypes.GameState.PlayerTurn) {
             playerList.Add(button);
             CheckResult();
         }
@@ -63,12 +63,12 @@ public class GameManager : MonoBehaviour {
 
         countManager.PrepareNewRound();
 
-        gameState = ValueTypes.gameState.start;
+        gameState = ValueTypes.GameState.Start;
     }
 
     private void DoesGameStart() {
-        if (gameState == ValueTypes.gameState.start && Input.anyKeyDown) {
-            SwitchGameState(ValueTypes.gameState.task);
+        if (gameState == ValueTypes.GameState.Start && Input.anyKeyDown) {
+            SwitchGameState(ValueTypes.GameState.Task);
             UpdateScore();
 
             taskLoop = countManager.GetCountTaskButtons();
@@ -77,14 +77,14 @@ public class GameManager : MonoBehaviour {
     }
 
     private void CheckResult() {
-        if (playerList[playerList.Count - 1] != taskList[playerList.Count - 1])
+        if (playerList[playerList.Count - 1] != taskList[playerList.Count - 1]){
             GameOver();
-        else {
+        } else {
             IncreaseScore();
             UpdateScore();
 
             if (taskList.Count == playerList.Count) {
-                SwitchGameState(ValueTypes.gameState.win);
+                SwitchGameState(ValueTypes.GameState.Win);
                 GoToNextLevel();
             }
 
@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void GameOver() {
-        SwitchGameState(ValueTypes.gameState.lose);
+        SwitchGameState(ValueTypes.GameState.Lose);
 
         ResetData();
         PrepareNewRound();
@@ -108,24 +108,24 @@ public class GameManager : MonoBehaviour {
         switch ((int)(Random.Range(25, 125) / 25)) {
             case 1:
                 blueButton.ClickButton();
-                taskList.Add(ValueTypes.buttonType.blue);
+                taskList.Add(ValueTypes.ButtonType.Blue);
                 break;
             case 2:
                 greenButton.ClickButton();
-                taskList.Add(ValueTypes.buttonType.green);
+                taskList.Add(ValueTypes.ButtonType.Green);
                 break;
             case 3:
                 redButton.ClickButton();
-                taskList.Add(ValueTypes.buttonType.red);
+                taskList.Add(ValueTypes.ButtonType.Red);
                 break;
             case 4:
                 yellowButton.ClickButton();
-                taskList.Add(ValueTypes.buttonType.yellow);
+                taskList.Add(ValueTypes.ButtonType.Yellow);
                 break;
             default:
                 Debug.Log("GameManager/RandomBlinks setting random button error!");
                 blueButton.ClickButton();
-                taskList.Add(ValueTypes.buttonType.green);
+                taskList.Add(ValueTypes.ButtonType.Green);
                 break;
         }
 
@@ -134,13 +134,13 @@ public class GameManager : MonoBehaviour {
         if (--taskLoop > 0) {
             StartCoroutine(RandomButtonBlink());
         } else {
-            SwitchGameState(ValueTypes.gameState.playerTurn);
+            SwitchGameState(ValueTypes.GameState.PlayerTurn);
 
             RestoreBonusScore();
         }
     }
 
-    private void SwitchGameState(ValueTypes.gameState newGameState) {
+    private void SwitchGameState(ValueTypes.GameState newGameState) {
         gameState = newGameState;
         interfaceManager.SwitchGameState(newGameState);
     }

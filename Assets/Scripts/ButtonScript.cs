@@ -2,7 +2,7 @@
 
 public class ButtonScript : MonoBehaviour {
 
-    public ValueTypes.buttonType thisButton;
+    public ValueTypes.ButtonType thisButton;
     private Animator animator;
     private GameManager gameManager;
 
