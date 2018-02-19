@@ -12,14 +12,14 @@ public class CountManager : MonoBehaviour {
     private float bonusScore;
 
 
-    void Start () {
+    public void Start () {
         gameManager = GetComponent<GameManager>();
 
         ResetData();
         PrepareNewRound();
     }
 	
-    void Update () {
+    public void Update () {
         DecreaseBonusScore();
     }
 

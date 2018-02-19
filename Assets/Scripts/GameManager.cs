@@ -21,22 +21,22 @@ public class GameManager : MonoBehaviour {
     private bool messageOnScreen;
     private ValueTypes.GameState gameState;
 
-    void Start() {
+    public void Start() {
         countManager = GetComponent<CountManager>();
         interfaceManager = GetComponent<UIManager>();
 
         taskList = new List<ValueTypes.ButtonType>();
         playerList = new List<ValueTypes.ButtonType>();
 
-        ResetData();
+        countManager.ResetData();
         PrepareNewRound();
     }
 
-    void LateStart() {
-        UpdateScore();
+    public void LateStart() {
+        interfaceManager.UpdateScore();
     }
 
-    void Update() {
+    public void Update() {
         DoesGameStart();
     }
 
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
             CheckResult();
         }
 
-        RestoreBonusScore();
+        countManager.RestoreBonusScore();
     }
 
     public void UpdateBestScore(int newBestScore) {
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour {
     private void DoesGameStart() {
         if (gameState == ValueTypes.GameState.Start && Input.anyKeyDown) {
             SwitchGameState(ValueTypes.GameState.Task);
-            UpdateScore();
+            interfaceManager.UpdateScore();
 
             taskLoop = countManager.GetCountTaskButtons();
             StartCoroutine(RandomButtonBlink());
@@ -80,8 +80,8 @@ public class GameManager : MonoBehaviour {
         if (playerList[playerList.Count - 1] != taskList[playerList.Count - 1]){
             GameOver();
         } else {
-            IncreaseScore();
-            UpdateScore();
+            countManager.IncreaseScore();
+            interfaceManager.UpdateScore();
 
             if (taskList.Count == playerList.Count) {
                 SwitchGameState(ValueTypes.GameState.Win);
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour {
     private void GameOver() {
         SwitchGameState(ValueTypes.GameState.Lose);
 
-        ResetData();
+        countManager.ResetData();
         PrepareNewRound();
     }
 
@@ -136,28 +136,12 @@ public class GameManager : MonoBehaviour {
         } else {
             SwitchGameState(ValueTypes.GameState.PlayerTurn);
 
-            RestoreBonusScore();
+            countManager.RestoreBonusScore();
         }
     }
 
     private void SwitchGameState(ValueTypes.GameState newGameState) {
         gameState = newGameState;
         interfaceManager.SwitchGameState(newGameState);
-    }
-
-    private void ResetData() {
-        countManager.ResetData();
-    }
-
-    private void IncreaseScore() {
-        countManager.IncreaseScore();
-    }
-
-    private void RestoreBonusScore() {
-        countManager.RestoreBonusScore();
-    }
-
-    private void UpdateScore() {
-        interfaceManager.UpdateScore();
     }
 }

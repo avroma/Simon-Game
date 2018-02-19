@@ -5,7 +5,6 @@ public class UIManager : MonoBehaviour {
 
     private const int SMALL_DELAY_POPUP_MESSAGE_FRAMES = 90;
     private const int LARGE_DELAY_POPUP_MESSAGE_FRAMES = 170;
-    private int messageTimer;
 
     public Text scoreText;
     public Text bestScoreText;
@@ -13,10 +12,11 @@ public class UIManager : MonoBehaviour {
 
     private GameManager gameManager;
     private ValueTypes.GameState gameState;
+    private int messageTimer;
     private bool messageOnScreen;
 
 
-    void Start () {
+    public void Start () {
         gameManager = GetComponent<GameManager>();
 
         SwitchGameState(ValueTypes.GameState.Start);
@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour {
     }
 	
 
-    void Update () {
+    public void Update () {
         NeedToShowMessage();
     }
 

@@ -6,16 +6,16 @@ public class ButtonScript : MonoBehaviour {
     private Animator animator;
     private GameManager gameManager;
 
+    public void Start() {
+        animator = GetComponent<Animator>();
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
     public void ClickButton() {
         animator.SetTrigger("BlinkButton");
     }
 
     public void OnClick() {
         gameManager.PlayerClick(thisButton);
-    }
-
-    void Start () {
-        animator = GetComponent<Animator>();
-        gameManager = FindObjectOfType<GameManager>();
     }
 }
