@@ -31,7 +31,8 @@ public class UIManager : MonoBehaviour {
     }
 
     public void UpdateScore() {
-        scoreText.text = "Результат: " + gameManager.GetScore();
+        scoreText.text = "Результат: " + gameManager.Score;
+
     }
 
     public void DisplayNewBestScore(int newBestScore) {

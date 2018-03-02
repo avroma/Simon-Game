@@ -11,6 +11,12 @@ public class GameManager : MonoBehaviour {
     public ButtonScript redButton;
     public ButtonScript yellowButton;
 
+    public int Score {
+        get {
+            return countManager.GetScore();
+        }
+    }
+
     private CountManager countManager;
     private UIManager interfaceManager;
 
@@ -51,10 +57,6 @@ public class GameManager : MonoBehaviour {
 
     public void UpdateBestScore(int newBestScore) {
         interfaceManager.DisplayNewBestScore(newBestScore);
-    }
-
-    public int GetScore() {
-        return countManager.GetScore();
     }
 
     private void PrepareNewRound() {
